@@ -32,7 +32,7 @@ namespace ChunkCrypt
             {
                 if (mode == "enc")
                 {
-                    string uniqueKey = Algo.getUniqueKey(47);
+                    string uniqueKey = Algo.getUniqueKey(32);
                     byte[] salt = Algo.Salsa20.generateSalt();
                     Console.WriteLine($"[+] Target : {fileName}");
                     Console.WriteLine($"[+] KEY    : {uniqueKey}");
