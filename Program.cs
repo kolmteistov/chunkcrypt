@@ -236,7 +236,7 @@ namespace ChunkCrypt
                     }
 
                     // DERIVE KEY
-                    Rfc2898DeriveBytes RFCDB = new Rfc2898DeriveBytes(password, salt, 50);
+                    Rfc2898DeriveBytes RFCDB = new Rfc2898DeriveBytes(password, salt, 100, HashAlgorithmName.SHA256);
                     byte[] key = RFCDB.GetBytes(32);
                     RFCDB.Dispose();
 
