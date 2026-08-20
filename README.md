@@ -139,29 +139,15 @@ dotnet publish -c Release -r YourOs-Arch64 *ex linux-arm64
 ```
 
 **Output**:
-```
-================================================
-   Intermittent Encryption Demo   
-================================================
 
-[+] Target : document.pdf
-[+] KEY    : [BASE64_KEY_47_CHARS]
-[+] SALT   : [BASE64_SALT_12_CHARS]
-[MODE] Intermittent Encryption (File: 5120KB)
-[DEBUG] ChunkSize: 8192, MinJump: 32768, MaxJump: 131072
-[STATS] Encrypted Chunks: 156
-[STATS] Coverage: 34.56% (1769472/5120000 bytes)
-[STATS] Entropy Score: 6.42 (Target: 5.0 - 6.5)
-
-[!] SUCCESS: File is LOCKED.
-```
+<img width="1080" height="422" alt="Screenshot_20260820-163408" src="https://github.com/user-attachments/assets/8a7ababe-4dbb-489d-b34d-a5487f51796c" />
 
 File original diganti dengan `filename.LOCKED`
 
 ### Dekripsi File
 
 ```bash
-./ChunkCrypt dec document.pdf.LOCKED
+./ChunkCrypt dec dummy_teks.txt.LOCKED
 ```
 
 **Input prompt**:
@@ -171,6 +157,8 @@ File original diganti dengan `filename.LOCKED`
 ```
 
 File di-restore ke nama original.
+
+<img width="1080" height="337" alt="Screenshot_20260820-163453" src="https://github.com/user-attachments/assets/2aec8533-5477-43ef-8e16-e9b51c73482a" />
 
 ---
 
