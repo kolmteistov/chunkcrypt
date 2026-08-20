@@ -129,7 +129,7 @@ Entropy score membantu verify bahwa output terenkripsi memiliki karakteristik ra
 ### Kompilasi
 
 ```bash
-csc Program.cs Algo.cs /target:exe /out:ChunkCrypt.exe
+dotnet publish -c Release -r YourOs-Arch64 *ex linux-arm64
 ```
 
 ### Enkripsi File
