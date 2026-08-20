@@ -169,11 +169,36 @@ File di-restore ke nama original.
 Untuk efisiensi memory pada file besar:
 
 ```csharp
-using (var mmf = MemoryMappedFile.CreateFromFile(file, FileMode.Open)) {
-    using (var accessor = mmf.CreateViewAccessor()) {
-        accessor.ReadArray(pos, buffer, 0, bytesToRead);
-        // ... process ...
-        accessor.WriteArray(pos, encrypted, 0, encrypted.Length);
+// Buka MMF dengan ukuran baru
+using (var mmf = MemoryMappedFile.CreateFromFile(file, FileMode.Open, null, newFileSize, MemoryMappedFileAccess.ReadWrite))
+{
+    using (var accessor = mmf.CreateViewAccessor())
+    {
+        long currentPos = 0;
+
+        // ENKRIPSI KONTEN (hanya sampai fileSize asli, jangan sentuh footer)
+        while (currentPos < fileSize)
+        {
+            int bytesToRead = (int)Math.Min(chunkSize, fileSize - currentPos);
+            if (bytesToRead <= 0) break;
+
+            // ... proses baca & enkripsi chunk ...
+
+            // Tulis kembali
+            accessor.WriteArray(currentPos, encrypted, 0, encrypted.Length);
+
+            // ... kalkulasi jump & progress ...
+        }
+
+        // Tulis footer menggunakan MMF (mulai dari posisi fileSize)
+        long footerPos = fileSize;
+
+        // Tulis IV & Marker
+        accessor.WriteArray(footerPos, iv, 0, IV_SIZE);
+        footerPos += IV_SIZE;
+        accessor.WriteArray(footerPos, markerBytes, 0, markerBytes.Length);
+
+        // Flush semua perubahan ke disk
         accessor.Flush();
     }
 }
